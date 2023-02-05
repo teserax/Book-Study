@@ -26,6 +26,6 @@ func main() {
 		total += number //суммируем
 
 	}
-
+	fmt.Println(total)
 	fmt.Println(total / float64(len(os.Args)-1)) //делим сумму на количество переданных аргументов выводим полученный результат в консоль
 }
