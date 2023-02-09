@@ -18,7 +18,7 @@ func main() {
 	var total float64
 	for i := 1; i < len(os.Args); i++ { //если передали.... то используя цикл for мы передаем полученные аргумент в переменную number
 		//и спользуя метотд пакета-strconv.ParseFloat конвертируем полученные данные в число так как  мы получаем их виде string
-		number, err := strconv.ParseFloat(os.Args[i], 64)
+		number, err := strconv.ParseFloat(os.Args[i], 32)
 		if err != nil { //проверяем на корректность данных
 			fmt.Println(err)
 			return //если получим ошибку выводим в консоль и выходи из программы
