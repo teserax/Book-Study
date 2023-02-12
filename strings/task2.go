@@ -1,29 +1,17 @@
-//Есть некий текст, который содержит между словами один или несколько пробелов.
-//Нужно очистить этот текст от лишних пробелов, чтоб между словами было по 1 пробелу.
+//Есть некий текст. нужно посчитать количество слов в этом тексте.
+//Если известно что слова разделяются одним пробелом.
 
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-// Идеея такая встречаем пробел указываем в переменной space=true найден пробел
-// если после не повторяется  пробел то возвращаем переменную обратно к false
-// если иначе вырезаем его из текста
 func main() {
-	text := `Ut    enim     ad       minim       veniam` //рабочий текс
-	space := false                                       // переменная поможет контролировать пробелы в тексте
-	for i := 0; i < len(text); i++ {
-		switch {
-		case string(text[i]) == " " && space != true: //если пробел и он первый то space = true
-			space = true
-		case string(text[i]) == " " && space == true: //если пробел и он не первый
-			text = text[:i] + text[i+1:] //вырезаем
-			i--                          //взвращаемся на шаг назад и еще раз проверяем !!
-		case string(text[i]) != " ": //если это не пробел то space = false
-			space = false
+	text := "Ut enim ad minim veniam nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id"
+	count := 1
+	for _, val := range text {
+		if string(val) == " " {
+			count++
 		}
-
 	}
-	fmt.Println(text)
+	fmt.Println(count)
 }
