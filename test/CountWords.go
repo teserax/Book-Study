@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-func countWordsInText(text string) map[string]int {
+func сountWordsInText(text string) map[string]int {
 	textSymbols := `!,$%^&*()/[{}.`
 	if len(text) == 0 {
 		return map[string]int{}
@@ -38,6 +38,8 @@ func countWordsInText(text string) map[string]int {
 func main() {
 	text := "It has survived not [[only! five centuries, bu[t also the leap into electronic[[ typesetting, five remaining[[ essentially unchanged."
 	var textRu string
-	fmt.Println(countWordsInText(text))
-	fmt.Println(countWordsInText(textRu))
+	textRu = "Мы приложили много усилий, чтобы работать на нашей бирже копирайтинга было максимально легко и удобно"
+	fmt.Println(сountWordsInText(text))
+	fmt.Println(сountWordsInText(textRu))
+
 }

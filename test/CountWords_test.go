@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestCountWordsInText(t *testing.T) {
 	var tests = []struct {
@@ -12,8 +15,8 @@ func TestCountWordsInText(t *testing.T) {
 		{"hi ,hi world!", map[string]int{"hi": 2, "world": 1}},
 	}
 	for _, test := range tests {
-		if got := countWordsInText(test.text); got  test.want {
-			t.Error("Error! countWordsInText() ", test.text, got)
+		if got := сountWordsInText(test.text); reflect.DeepEqual(got, test.want) != true {
+			t.Errorf(`Error! countWordsInText() `, test.want, got)
 		}
 	}
 
