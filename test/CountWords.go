@@ -9,23 +9,20 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
 func сountWordsInText(text string) map[string]int {
-	textSymbols := `!,$%^&*()/[{}.`
+
 	if len(text) == 0 {
 		return map[string]int{}
 	}
-	for _, val := range text { //проверка и очистка текста на спец-символы
-		for i := 0; i < len(textSymbols); i++ {
-			if val == int32(textSymbols[i]) { //если найден удаляем и приводим строку к нижнему регистру согласно условиям
-				text = strings.ReplaceAll(strings.ToLower(text), string(textSymbols[i]), "")
-			}
-		}
-	}
+
+	text = strings.ToLower(text)
+	re := regexp.MustCompile("[a-zа-я]+")
+	textSplit := re.FindAllString(text, -1)
 	words := map[string]int{}
-	textSplit := strings.Split(text, " ")
 	for _, val := range textSplit {
 		if _, exist := words[string(val)]; exist {
 			words[string(val)]++
