@@ -33,7 +33,7 @@ func сountWordsInText(text string) map[string]int {
 	return words
 }
 func main() {
-	text := "It has survived not [[only! five centuries, bu[t also the leap into electronic[[ typesetting, five remaining[[ essentially unchanged."
+	text := "It has survived not [[only! five-centuries, bu[t also the leap into electronic[[ typesetting, five remaining[[ essentially unchanged."
 	var textRu string
 	textRu = "Мы приложили много усилий, чтобы работать на нашей бирже копирайтинга было максимально легко и удобно"
 	fmt.Println(сountWordsInText(text))
