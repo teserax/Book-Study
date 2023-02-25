@@ -20,7 +20,7 @@ func сountWordsInText(text string) map[string]int {
 	}
 
 	text = strings.ToLower(text)
-	re := regexp.MustCompile("[a-zа-я]+")
+	re := regexp.MustCompile("[a-z-а-я]+")
 	textSplit := re.FindAllString(text, -1)
 	words := map[string]int{}
 	for _, val := range textSplit {
