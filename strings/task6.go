@@ -15,6 +15,9 @@ func iterator(text string) string {
 		return text
 	}
 	for i := 0; i < len(text); i++ {
+		if string(text[i]) == ":" {
+			return text
+		}
 		if string(text[i]) == "=" && string(text[i+1]) == "+" && string(text[i+2]) == "1" {
 			text = text[:i] + "++" + text[i+3:]
 		}
@@ -26,6 +29,6 @@ func iterator(text string) string {
 	return text
 }
 func main() {
-	text := " c=5;b=-1 = ++ a=+1"
+	text := "a=+1"
 	fmt.Println(iterator(text))
 }
