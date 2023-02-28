@@ -13,6 +13,7 @@ func TestIterator(t *testing.T) {
 		{"a=+1", "a++"},
 		{"a:=1", "a:=1"},
 		{"b=-1", "b--"},
+		{"b:=-1", "b:=-1"},
 		{"a=+1;b:=-1", "a++;b:=-1"},
 	}
 	for _, test := range tests {
