@@ -18,7 +18,6 @@ func TestIterator(t *testing.T) {
 	}
 	for _, test := range tests {
 		if got := iterator(test.text); got != test.string {
-			fmt.Printf("%v %v", got, test.string)
 			t.Errorf(`Error!  want: %v  got: %v`, test.string, got)
 		}
 	}
