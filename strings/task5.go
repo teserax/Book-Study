@@ -5,23 +5,28 @@
 
 package main
 
-import "fmt"
+import (
+	"strings"
+)
 
-func palidrom(text string) bool {
+func palidrom(str string) bool {
+	if len(str) == 0 {
+		return false
+	}
+	str = strings.ReplaceAll(str, " ", "")//ВОПРОС должны мы уберать пробелы или нет???
+	text := []rune(str)
 	for i := 0; i < len(text); i++ {
 		if text[i] != text[len(text)-1-i] { //если не совпадают то не палидром и выходим из цикла
-			fmt.Println("Non Polidrom")
+			return false
 		} else if len(text)-1-i < len(text)/2 { //если мы проверили больше половины длины слова значит все совподает ПАЛИДРОМ!
-			fmt.Println("Palindrom")
 			return true
 		}
-
 	}
 	return false
 }
 func main() {
-	text := []rune("АРОЗАУПАЛАНАЛАПУАЗОРА") //так  верно
-	fmt.Println(text)
+	text := "А РОЗА УПАЛА НА ЛАПУ АЗОРА" //так  верно
+	text = strings.ReplaceAll(text, " ", "")
 	//text := []rune("А РОЗА УПАЛА НА ЛАПУ АЗОРА") //соответственно так нет верно???
 
 }
