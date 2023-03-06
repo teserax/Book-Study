@@ -12,12 +12,8 @@ func reversText(text string) string {
 		return text
 	}
 	splitText := strings.Split(text, " ")
-	if len(splitText) == 1 {
-		return text
-	}
 	r := []string{}
-	i := len(splitText)
-	for i > 0 {
+	for i := len(splitText); i > 0; {
 		i--
 		r = append(r, splitText[i])
 	}
