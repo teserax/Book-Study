@@ -8,10 +8,10 @@ import (
 func TestFindRussianCapitals(t *testing.T) {
 	var tests = []struct {
 		text string
-		want string
-	}{{"Привет мир golong helloарас стекло пылеwсо", "мир стекло"},
-		{"Привет  пылеwсо", ""},
-		{"Привет мир golong helloарас стеwкло пылеwсо тwеwсwт", "мир"},
+		want int
+	}{{"Привет мир golong helloарас стекло пылеwсо", 2},
+		{"Привет  пылеwсо", 0},
+		{"Привет мир golong helloарас стеwкло пылеwсо тwеwсwт", 1},
 	}
 	for _, test := range tests {
 		if got := findRussianCapitals(test.text); got != test.want {
