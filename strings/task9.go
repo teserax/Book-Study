@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func findRussianCapitals(text string) string {
+func findRussianCapitals(text string) int {
 	sText := strings.Split(text, " ")
 	result := []string{}
 	for _, val := range sText {
@@ -19,9 +19,9 @@ func findRussianCapitals(text string) string {
 			result = append(result, val)
 		}
 	}
-	return strings.Join(result, " ")
+	return len(result)
 }
 func main() {
-	text := "" //запутался как исключить слова в которых есть англиские буквы как последннее??"пылесоw
+	text := "" 
 	fmt.Println(findRussianCapitals(text))
 }
