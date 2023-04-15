@@ -21,6 +21,10 @@ type Cube struct {
 type Sphere struct {
 	radius float64
 }
+type Triangle struct {
+	heights int
+	length  int
+}
 
 func (c Cube) volumeCalculations() {
 	v := c.height * c.height * c.height
@@ -30,12 +34,21 @@ func (s Sphere) volumeCalculations() {
 	v := 4 / 3 * math.Pi * s.radius * 2
 	fmt.Printf("The volume of the Sphere is: %.2f\n", v)
 }
+func (t Triangle) volumeCalculations() {
+	v := t.length * t.heights / 2
+	fmt.Printf("The volume of the Triangle is: %d\n", v)
+}
 
 func main() {
 	var ball Figures = Cube{3}
 	var box Figures = Sphere{4}
+	var triangular Figures = Triangle{
+		heights: 4,
+		length:  4,
+	}
 	ball.volumeCalculations()
 	box.volumeCalculations()
+	triangular.volumeCalculations()
 }
 
 //интерфейс дает гибкость коду и переиспользование (и я думаю функциональность для других программистов ...
