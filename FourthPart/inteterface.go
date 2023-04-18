@@ -1,58 +1,56 @@
-//Вспомним что такое интерфейс.
-//Задача для этого: Напишите интерфейс
-//для вычисления объема трехмерных фигур,
-//таких как кубы и сферы. В чем польза
-//интерфейса (попробуй дать ответ)? (1 день)
+//Из главы (8. Как объяснить UNIX-системе, что она должна делать)
+//Задача для этого: Напишите программу Go, которая принимает три аргумента:
+//"имя текстового файла" и "две строки". Затем эта утилита должна заменить каждое вхождение
+//первой строки в файле второй строкой. В целях безопасности окончательный
+//результат выведите на экран, чтобы исходный текстовый файл остался без из-
+//менений. (2 дня)
 
 package main
 
 import (
+	"flag"
 	"fmt"
-	"math"
+	"strings"
 )
 
-type Figures interface {
-	volumeCalculations()
+type Value interface {
+	String() string
+	Set(string) error
 }
 
-type Cube struct {
-	height int
-}
-type Sphere struct {
-	radius float64
-}
-type Triangle struct {
-	heights int
-	length  int
+type NamesFlag struct {
+	Names []string
 }
 
-func (c Cube) volumeCalculations() {
-	v := c.height * c.height * c.height
-	fmt.Printf("The volume of the Cube is: %d\n", v)
+func (s *NamesFlag) GetNames() []string {
+	return s.Names
 }
-func (s Sphere) volumeCalculations() {
-	v := 4 / 3 * math.Pi * s.radius * 2
-	fmt.Printf("The volume of the Sphere is: %.2f\n", v)
+func (s *NamesFlag) String() string {
+	return fmt.Sprint(s.Names)
 }
-func (t Triangle) volumeCalculations() {
-	v := t.length * t.heights / 2
-	fmt.Printf("The volume of the Triangle is: %d\n", v)
-}
-
-func main() {
-	var ball Figures = Cube{3}
-	var box Figures = Sphere{4}
-	var triangular Figures = Triangle{
-		heights: 4,
-		length:  4,
+func (s *NamesFlag) Set(v string) error {
+	if len(s.Names) > 0 {
+		return fmt.Errorf("Cannot use names flag more than once!")
 	}
-	ball.volumeCalculations()
-	box.volumeCalculations()
-	triangular.volumeCalculations()
+	names := strings.Split(v, ",")
+	for _, item := range names {
+		s.Names = append(s.Names, item)
+	}
+	return nil
 }
-
-//интерфейс дает гибкость коду и переиспользование (и я думаю функциональность для других программистов ...
-//зная что есть интерфейс который имплементирует данный метод или методы можно использовать без необходимости погруженния в суть исполнения
-// что я имею веду можно добавить еще несколько  фигур(других обьектов)
-//или заменить на другие но благодаря единому интерфейсу используя один методот
-//можно взаимодействовать с несколькоми обьектами...
+func main() {
+	var manyNames NamesFlag
+	minusK := flag.Int("k", 0, "An int")
+	minusO := flag.String("o", "Mihalis", "The name")
+	flag.Var(&manyNames, "names", "Comma-separated list")
+	flag.Parse()
+	fmt.Println("-k:", *minusK)
+	fmt.Println("-o:", *minusO)
+	for i, item := range manyNames.GetNames() {
+		fmt.Println(i, item)
+	}
+	fmt.Println("Remaining command line arguments:")
+	for index, val := range flag.Args() {
+		fmt.Println(index, ":", val)
+	}
+}
