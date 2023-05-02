@@ -1,9 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type sum interface {
-	Fold()
+	Fold() string
 	String() string
 }
 
@@ -14,25 +16,28 @@ type myString struct {
 	name string
 }
 
-func (t myTemperatur) Fold() {
+func (t myTemperatur) Fold() string {
 	tem := t.celsius + t.celsius
-	fmt.Printf("sum of temperatures is:%v\n", tem)
+	return fmt.Sprintf("sum of temperatures is:%v\n", tem)
 }
 func (t myTemperatur) String() string {
 	return fmt.Sprintf("temperature is:%v", t.celsius)
 }
-func (s myString) Fold() {
-	fmt.Printf("Hello %v\n", s.name)
+func (s myString) Fold() string {
+	return fmt.Sprintf("Hello %v\n", s.name)
 }
 func (s myString) String() string {
 	return fmt.Sprintf("Name of user is:%v\n", s.name)
 }
+func test(s sum) func() string {
+
+	t := s.Fold
+	return t
+
+}
 func main() {
 	var temp sum = myTemperatur{2}
 	var greetings sum = myString{"Valera"}
-	temp.Fold()
-	fmt.Println(temp)
-	fmt.Println("hello")
 	greetings.Fold()
-	fmt.Println(greetings)
+	test(temp)
 }

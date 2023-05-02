@@ -7,50 +7,35 @@
 
 package main
 
-import (
-	"flag"
-	"fmt"
-	"strings"
-)
+import "fmt"
 
-type Value interface {
-	String() string
-	Set(string) error
+type makeVoice interface {
+	Voice()
 }
 
-type NamesFlag struct {
-	Names []string
+type human struct{}   //разные сущности
+type animal struct{}  //разные сущности
+type vehicle struct{} //разные сущности
+
+func (v vehicle) Voice() {
+	fmt.Println("bbrrr,bbrrr")
+}
+func (a animal) Voice() {
+	fmt.Println("animal roars ra ra ra")
+}
+func (h human) Voice() {
+	fmt.Println("Human say ha ha ha")
+}
+func voice(m makeVoice) { //блогодоря интерфейсу мы можем предать любую сущность у которой есть метод Voice
+	m.Voice()
 }
 
-func (s *NamesFlag) GetNames() []string {
-	return s.Names
-}
-func (s *NamesFlag) String() string {
-	return fmt.Sprint(s.Names)
-}
-func (s *NamesFlag) Set(v string) error {
-	if len(s.Names) > 0 {
-		return fmt.Errorf("Cannot use names flag more than once!")
-	}
-	names := strings.Split(v, ",")
-	for _, item := range names {
-		s.Names = append(s.Names, item)
-	}
-	return nil
-}
 func main() {
-	var manyNames NamesFlag
-	minusK := flag.Int("k", 0, "An int")
-	minusO := flag.String("o", "Mihalis", "The name")
-	flag.Var(&manyNames, "names", "Comma-separated list")
-	flag.Parse()
-	fmt.Println("-k:", *minusK)
-	fmt.Println("-o:", *minusO)
-	for i, item := range manyNames.GetNames() {
-		fmt.Println(i, item)
-	}
-	fmt.Println("Remaining command line arguments:")
-	for index, val := range flag.Args() {
-		fmt.Println(index, ":", val)
-	}
+	andrei := human{}
+	cat := animal{}
+	GT90 := vehicle{}
+	voice(andrei)
+	voice(cat)
+	voice(GT90)
+	//можем добавить или удалить любую сущность
 }

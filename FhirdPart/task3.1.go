@@ -66,11 +66,13 @@ func main() {
 		}
 	}
 	sort := flag.Bool("sort", false, "sort date ")
+	name := flag.String("name", "", "user name")
 	flag.Parse()
 	sortedEvents := sortDates(sortEvent, *sort)
 	for _, event := range sortedEvents {
 		fmt.Printf("%+v\n", event.date.String())
 	}
+	fmt.Println(name)
 }
 func sortDates(myEvents []eventWithDate, sort bool) []eventWithDate {
 	for i := 0; i < len(myEvents); i++ {
