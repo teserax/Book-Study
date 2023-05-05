@@ -12,3 +12,8 @@ func BenchmarkSearchVowelsRegular(b *testing.B) {
 		SearchVowelsRegular(ReadFile("text.txt"))
 	}
 }
+func BenchmarkSearchVowelsInMap(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SearchVowelsInMap(stringToMap(ReadFile("text.txt")))
+	}
+}
