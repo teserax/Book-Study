@@ -51,7 +51,7 @@ func SearchVowelsRegular(str string) int { //поиск гласных чере�
 	}
 	return count
 }
-func SearchVowelsInMap(m map[string]int) int { //поиск гласных
+func SearchVowelsInMap(m map[string]int) int { //поиск гласных в мапе
 	if len(m) == 0 {
 		return 0
 	}
@@ -77,7 +77,7 @@ func ReadFile(nameFile string) string { // функция для чтения ф
 
 	return fileText
 }
-func stringToMap(str string) map[string]int {
+func stringToMap(str string) map[string]int { //конвертация строки в мапу
 	m := map[string]int{}
 	for _, word := range str {
 		if _, ok := m[string(word)]; ok {
@@ -91,7 +91,7 @@ func stringToMap(str string) map[string]int {
 func main() {
 
 	ReadFile("text.txt")
-	fmt.Println(SearchVowels(ReadFile("text.txt")))        //count 2262736
-	fmt.Println(SearchVowelsRegular(ReadFile("text.txt"))) //count 2262736
-	fmt.Println(SearchVowelsInMap(stringToMap(ReadFile("text.txt"))))
+	fmt.Println(SearchVowels(ReadFile("text.txt")))                   //count 2262735
+	fmt.Println(SearchVowelsRegular(ReadFile("text.txt")))            //count 2262735
+	fmt.Println(SearchVowelsInMap(stringToMap(ReadFile("text.txt")))) //count 2262735
 }
