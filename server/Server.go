@@ -13,19 +13,32 @@ func check(err error) {
 func viewHandler(writer http.ResponseWriter, request *http.Request) {
 	placeholder := []byte("signature list goest here")
 	_, err := writer.Write([]byte(placeholder))
-	check(err)
+	if err != nil {
+		writer.WriteHeader(http.StatusInternalServerError)
+		writer.Write([]byte(err.Error()))
+		return
+	}
 	writer.WriteHeader(http.StatusOK)
 }
 func getHandler(writer http.ResponseWriter, request *http.Request) {
 	placeholder := []byte("signature get list")
 	_, err := writer.Write([]byte(placeholder))
-	check(err)
+	if err != nil {
+		writer.WriteHeader(http.StatusInternalServerError)
+		writer.Write([]byte(err.Error()))
+		return
+	}
+
 	writer.WriteHeader(http.StatusOK)
 }
 func postHandler(writer http.ResponseWriter, request *http.Request) {
 	placeholder := []byte("signature post in list")
 	_, err := writer.Write([]byte(placeholder))
-	check(err)
+	if err != nil {
+		writer.WriteHeader(http.StatusInternalServerError)
+		writer.Write([]byte(err.Error()))
+		return
+	}
 	writer.WriteHeader(http.StatusOK)
 }
 func main() {
