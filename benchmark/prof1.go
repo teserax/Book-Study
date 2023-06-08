@@ -35,7 +35,19 @@ func SearchVowels(str string) int { //поиск гласных
 
 	return count
 }
-
+func SearchVowelsInSlice(str string) int { //поиск гласных хранящихся в слайсе
+	strVowels := []string{"a", "e", "i", "o", "u", "y"}
+	count := 0
+	for _, val := range str {
+		for _, word := range strVowels {
+			if string(val) == word {
+				count++
+			}
+		}
+	}
+	fmt.Println(count)
+	return count
+}
 func SearchVowelsRegular(str string) int { //поиск гласных через регулярные выражения
 	if str == "" {
 		return 0
@@ -94,4 +106,5 @@ func main() {
 	fmt.Println(SearchVowels(ReadFile("text.txt")))                   //count 2262735
 	fmt.Println(SearchVowelsRegular(ReadFile("text.txt")))            //count 2262735
 	fmt.Println(SearchVowelsInMap(stringToMap(ReadFile("text.txt")))) //count 2262735
+	fmt.Println(SearchVowelsInSlice(ReadFile("text.txt")))            //count 2262735
 }
