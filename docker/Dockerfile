@@ -1,8 +1,8 @@
 FROM golang:alpine
 WORKDIR /build
-COPY hello.go .
-RUN go build -o hello hello.go
-ENTRYPOINT ["/build/hello"]
+COPY ./ ./
+EXPOSE 8080
+RUN go build -o main server.go
+ENTRYPOINT ["/build/main"]
 
 
-'hello.go Dockerfile: docker/Dockerfile' has been deployed successfully.
