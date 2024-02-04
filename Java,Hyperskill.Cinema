@@ -1,0 +1,145 @@
+package cinema;
+
+import java.util.Scanner;
+
+public class Cinema {
+    static int rows = 0;
+    static int seatsRow = 0;
+    static int rowsSeat = 0;
+    static int seatsPlace = 0;
+    static int numberOfTickets = 0;
+    static int priceTichet = 0;
+    static int total = 0;
+    static double percentage = 0.0;
+static  int numberOfSeats=0;
+static int currentIncome=0;
+    static String[][] matrix;
+
+    public static void main(String[] args) {
+
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of rows:");
+        rows = scanner.nextInt();
+        System.out.println("Enter the number of seats in each row:");
+        seatsRow = scanner.nextInt();
+
+        matrix = new String[rows + 1][seatsRow + 1];
+
+        for (int i = 1; i < matrix.length; i++) {
+            matrix[0][0] = " ";
+            matrix[i][0] = i + "";
+            for (int j = 1; j < matrix[i].length; j++) {
+                matrix[0][j] = j + "";
+                matrix[i][j] = "S" + "";
+
+            }
+
+        }
+        numberOfSeats = rows * seatsRow;
+        if (numberOfSeats <= 60) {
+            total = numberOfSeats * 10;
+        }
+        if (numberOfSeats > 60) {
+
+            int resSeats = rows / 2;
+            total = (((rows - resSeats) * seatsRow) * 8) + ((resSeats * seatsRow) * 10);
+        }
+        choiceMenu();
+
+    }
+
+    public static void choiceMenu() {
+        boolean end = true;
+        while (end) {
+            System.out.println();
+            System.out.println("1. Show the seats");
+            System.out.println("2. Buy a ticket");
+            System.out.println("3. Statistics");
+            System.out.println("0. Exit");
+
+            Scanner scanner = new Scanner(System.in);
+            int num = scanner.nextInt();
+            switch (num) {
+                case 1:
+                    showSits();
+                    break;
+                case 2:
+                    buyTicket();
+                    break;
+                case 3:
+                    statistics();
+                    break;
+                case 0:
+
+                    return;
+            }
+        }
+    }
+
+    public static void showSits() {
+        System.out.println();
+        System.out.print("Cinema:");
+
+        for (String[] val : matrix) {
+            System.out.println();
+            for (String num : val) {
+                System.out.print(num + " ");
+            }
+        }
+        System.out.println();
+    }
+
+
+    public static void buyTicket() {
+        Scanner scanner = new Scanner(System.in);
+        boolean end = true;
+        while (end) {
+            System.out.println("Enter a row number:");
+            rowsSeat = scanner.nextInt();
+            System.out.println("Enter a seat number in that row:");
+            seatsPlace = scanner.nextInt();
+            if(matrix.length-1<rowsSeat||matrix[0].length-1<seatsPlace){
+                System.out.println("Wrong input!");
+            } else if (matrix[rowsSeat][seatsPlace] == "B") {
+                System.out.println("That ticket has already been purchased");
+
+            } else {
+                matrix[rowsSeat][seatsPlace] = "B";
+                numberOfTickets++;
+
+
+                 numberOfSeats = rows * seatsRow;
+                percentage = (double) (numberOfTickets * 100) / numberOfSeats;
+                if (numberOfSeats <= 60) {
+                    total = numberOfSeats * 10; 
+                    priceTichet = 10;
+                  
+                }
+                if (numberOfSeats > 60) {
+
+                    int resSeats = rows / 2;
+                    total=(((rows-resSeats)*seatsRow)*8)+((resSeats*seatsRow)*10);
+                    if (rowsSeat <= resSeats) {
+                        priceTichet = 10;
+                    } else {
+                        priceTichet = 8;
+                    }
+                    
+                }
+                currentIncome+=priceTichet;
+                System.out.printf("Ticket price: $%d\n", priceTichet);
+                System.out.println();
+                return;
+            }
+        }
+    }
+
+    public static void statistics() {
+        char p='%';
+        System.out.printf("Number of purchased tickets: %d\n", numberOfTickets);
+        System.out.printf("Percentage: %.2f%c\n", percentage,p);
+        System.out.printf("Current income: $%d\n", currentIncome);
+        System.out.printf("Total income: $%d\n", total);
+    }
+}
