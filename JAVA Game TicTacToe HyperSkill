@@ -1,0 +1,134 @@
+package tictactoe;
+
+import java.util.Scanner;
+
+import static java.lang.Character.isDigit;
+
+public class Main {
+
+    static String[][] matrix;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String str = "_________";
+        int[] userCoordinates = new int[2];
+
+        matrix = new String[3][5];
+        matrix[0][1] = String.valueOf(str.charAt(0));
+        matrix[0][2] = String.valueOf(str.charAt(1));
+        matrix[0][3] = String.valueOf(str.charAt(2));
+        matrix[1][1] = String.valueOf(str.charAt(3));
+        matrix[1][2] = String.valueOf(str.charAt(4));
+        matrix[1][3] = String.valueOf(str.charAt(5));
+        matrix[2][1] = String.valueOf(str.charAt(6));
+        matrix[2][2] = String.valueOf(str.charAt(7));
+        matrix[2][3] = String.valueOf(str.charAt(8));
+        toString(matrix);
+        boolean end = true;
+        String s;
+        boolean move = false;
+        boolean winsX = false;
+        boolean winsO = false;
+        int countO = 0;
+        int countX = 0;
+        while (end) {
+
+            s = scanner.nextLine();
+            try {
+                if (isDigit(s.charAt(0)) && isDigit(s.charAt(2))) {
+                    int uf = Integer.parseInt((String.valueOf(s.charAt(0))));
+                    int us = Integer.parseInt((String.valueOf(s.charAt(2))));
+                    if (uf > 0 && uf <= 3 && us > 0 && us <= 3) {
+                        userCoordinates[0] = uf;
+                        userCoordinates[1] = us;
+                    } else {
+                        System.out.println("Coordinates should be from 1 to 3!");
+                        continue;
+                    }
+                } else {
+                    System.out.println("You should enter numbers!");
+
+                }
+                if (matrix[userCoordinates[0] - 1][userCoordinates[1]].equals("X") || matrix[userCoordinates[0] - 1][userCoordinates[1]].equals("O")) {
+                    System.out.println("This cell is occupied!  Choose another one!");
+                    continue;
+                } else if( !move) {
+                    matrix[userCoordinates[0] - 1][userCoordinates[1]] = "X";
+                  move=true;
+                    countX++;
+                } else if (move) {
+                    matrix[userCoordinates[0] - 1][userCoordinates[1]] = "O";
+                    move=false;
+                  countO++;
+                }
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("You enter 2 numbers!");
+                continue;
+            }
+
+
+
+            toString(matrix);
+
+
+
+            if (matrix[0][1].equals("O") && matrix[0][2].equals("O") && matrix[0][3].equals("O")
+                    || matrix[1][1].equals("O") && matrix[1][2].equals("O") && matrix[1][3].equals("O")
+                    || matrix[2][1].equals("O") && matrix[2][2].equals("O") && matrix[2][3].equals("O")
+                    || matrix[0][1].equals("O") && matrix[1][1].equals("O") && matrix[2][1].equals("O")
+                    || matrix[0][2].equals("O") && matrix[1][2].equals("O") && matrix[2][2].equals("O")
+                    || matrix[0][3].equals("O") && matrix[1][3].equals("O") && matrix[2][3].equals("O")
+                    || matrix[0][1].equals("O") && matrix[1][2].equals("O") && matrix[2][3].equals("O")
+                    || matrix[0][3].equals("O") && matrix[1][2].equals("O") && matrix[2][1].equals("O")) {
+                winsO = true;
+                System.out.println("O wins");
+                return;
+
+            }
+            if (matrix[0][1].equals("X") && matrix[0][2].equals("X") && matrix[0][3].equals("X")
+                    || matrix[1][1].equals("X") && matrix[1][2].equals("X") && matrix[1][3].equals("X")
+                    || matrix[2][1].equals("X") && matrix[2][2].equals("X") && matrix[2][3].equals("X")
+                    || matrix[0][1].equals("X") && matrix[1][1].equals("X") && matrix[2][1].equals("X")
+                    || matrix[0][2].equals("X") && matrix[1][2].equals("X") && matrix[2][2].equals("X")
+                    || matrix[0][3].equals("X") && matrix[1][3].equals("X") && matrix[2][3].equals("X")
+                    || matrix[0][1].equals("X") && matrix[1][2].equals("X") && matrix[2][3].equals("X")
+                    || matrix[0][3].equals("X") && matrix[1][2].equals("X") && matrix[2][1].equals("X"))
+            {
+                winsX = true;
+                System.out.println("X wins");
+                return;
+            }
+
+            if (countX != 5 || countO != 4) {
+               continue;
+            } else if (winsO && !winsX) {
+                System.out.println("O wins");
+            } else if (winsX && !winsO) {
+                System.out.println("X wins");
+            } else if (countX != 5 && countO != 4 && matrix.length == 9 && matrix[2][3].equals('_')) {
+                System.out.println("Game not finished");
+            } else {
+                System.out.println("Draw");
+            }
+            end = false;
+        }
+    }
+
+    public static void toString(String[][] arr) {
+
+        System.out.println("---------");
+        for (int i = 0; i < arr.length; i++) {
+            arr[i][0] = "|";
+            arr[i][4] = "|";
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j].equals("_")) {
+                    arr[i][j] = " ";
+                }
+                System.out.print(arr[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+        System.out.println("---------");
+    }
+}
